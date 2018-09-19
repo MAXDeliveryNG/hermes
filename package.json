@@ -1,0 +1,45 @@
+{
+  "name": "hermes",
+  "version": "1.0.0",
+  "description": "Hermes the messenger of the MAX service pantheon ",
+  "main": "lib/index.js",
+  "typings": "./lib/index.d.ts",
+  "license": "MIT",
+  "scripts": {
+    "prepublish": "yarn build",
+    "build": "rm -rf ./lib && yarn run compile",
+    "compile": "./node_modules/.bin/tsc",
+    "test": "./node_modules/.bin/jest"
+  },
+  "dependencies": {
+    "@azure/event-hubs": "^1.0.2",
+    "@types/async-lock": "^1.1.0"
+  },
+  "devDependencies": {
+    "@types/jest": "^23.3.2",
+    "jest": "^23.6.0",
+    "ts-jest": "^23.1.4",
+    "ts-lint": "^4.5.1",
+    "typescript": "^3.0.3"
+  },
+  "files": [
+    "lib"
+  ],
+  "jest": {
+    "testPathIgnorePatterns": [
+      "/node_modules/",
+      "/lib"
+    ],
+    "transform": {
+      "^.+\\.tsx?$": "ts-jest"
+    },
+    "testRegex": "(/__tests__/.*|(\\.|/)(test|spec))\\.(jsx?|tsx?)$",
+    "moduleFileExtensions": [
+      "ts",
+      "tsx",
+      "js",
+      "jsx",
+      "json"
+    ]
+  }
+}
