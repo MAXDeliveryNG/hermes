@@ -1,5 +1,5 @@
 {
-  "name": "hermes",
+  "name": "@maxng/hermes",
   "version": "1.0.0",
   "description": "Hermes the messenger of the MAX service pantheon ",
   "main": "lib/index.js",
