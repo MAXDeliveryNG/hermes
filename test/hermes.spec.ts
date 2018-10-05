@@ -1,8 +1,10 @@
-import { HermesClient, HermesMessage } from '../src/index';
-import { EventHubClient } from '@azure/event-hubs';
+import {Hermes } from '../src/index';
+import { EventHub } from '../src/eventhub';
+import { ServiceBus } from '../src/servicebus';
 
 const connectionString = process.env.CONNECTION_STRING || 'Endpoint=sb://chatter.servicebus.windows.net/;SharedAccessKeyName=RootManageSharedAccessKey;SharedAccessKey=FBDNnnRB+7ZUu+z7sajHy07h1m5pNSkgLOqqFM6jECc=';
 const hubName = process.env.EVENTHUB_NAME || 'test';
+const serviceBusConnectionString = process.env.SERVICE_BUS_STRING || 'Endpoint=sb://ramble.servicebus.windows.net/;SharedAccessKeyName=RootManageSharedAccessKey;SharedAccessKey=pwSES7By/4LPJzBrM/2tX6ZlKCVK1LjGJ4Pefiq7f5U=';
 
 interface Trip {
     id: string;
@@ -10,54 +12,20 @@ interface Trip {
     status: string;
 }
 
-describe('Hermes Client', () => {
-    it('Shoud be defined', () => {
-        expect(HermesClient).toBeDefined();
-    });
+describe('Hermes', () => {
+   it('should be defined', () => {
+       expect(Hermes).toBeDefined();
+   })
 
-    it('Can create an instance', () => {
-        const hermes = new HermesClient(connectionString, hubName);
-        expect(hermes).toBeDefined();
-    });
+   it('can create an EventHub instance', () => {
+       const eventhub = Hermes.createEventHub(connectionString, hubName);
+       expect(eventhub).toBeDefined();
+       expect(eventhub).toBeInstanceOf(EventHub);
+   })
 
-    it('Can get the hub name', () => {
-        const hermes = new HermesClient(connectionString, hubName);
-        expect(hermes.getHubName()).toEqual(hubName);
-    });
-
-    it('Can get the client', () => {
-        const hermes = new HermesClient(connectionString, hubName);
-        expect(hermes.getClient()).toBeInstanceOf(EventHubClient);
-    });
-
-    it('Can send a message', () => {
-        const hermes = new HermesClient(connectionString, hubName);
-        const message: HermesMessage<Trip> = {
-            body: {
-                id: 'sknfksnlg',
-                trip_distance: 45302.324,
-                status: 'end_trip'
-            }
-        }
-
-        expect(hermes.sendMessage(message)).resolves.toBeDefined();
-    }, 2000);
-
-    it('Can send many messages at once', () => {
-        const hermes = new HermesClient(connectionString, hubName);
-
-        const messages: HermesMessage<Trip>[] = [];
-
-        for (let i = 0; i < 500; i++) {
-            messages.push({
-                body: {
-                    id: `gsakngknsg-${i}`,
-                    trip_distance: Math.random(),
-                    status: 'end_trip'
-                }
-            });
-        }
-
-        expect(hermes.batchSendMessage(messages)).resolves.toBeDefined();
-    });
+   it('can create an ServiceBus instance', () => {
+        const servicebus = Hermes.createServiceBus(serviceBusConnectionString);
+        expect(servicebus).toBeDefined();
+        expect(servicebus).toBeInstanceOf(ServiceBus);
+   })
 });
