@@ -9,21 +9,21 @@
   "scripts": {
     "prepublish": "yarn build",
     "build": "rm -rf ./lib && yarn run compile",
-    "compile": "./node_modules/.bin/tsc",
-    "test": "./node_modules/.bin/jest"
+    "compile": "yarn tsc",
+    "test": "yarn jest"
   },
   "dependencies": {
-    "@azure/event-hubs": "^1.0.2",
+    "@azure/event-hubs": "^1.0.5",
     "@types/async-lock": "^1.1.0",
     "azure-sb": "^0.10.6"
   },
   "devDependencies": {
     "@types/azure-sb": "^0.0.32",
-    "@types/jest": "^23.3.2",
+    "@types/jest": "^23.3.3",
     "jest": "^23.6.0",
-    "ts-jest": "^23.1.4",
-    "tslint": "^4.5.1",
-    "typescript": "^3.0.3"
+    "ts-jest": "^23.10.3",
+    "tslint": "^5.11.0",
+    "typescript": "^3.1.1"
   },
   "files": [
     "lib"
