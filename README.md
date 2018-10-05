@@ -19,3 +19,7 @@ other system to ingest.
 Hermes has two core APIs
 * EventHub
 * ServiceBus
+
+### EventHub
+
+The EventHub API is powered by [!Azure EventHubs](https://docs.microsoft.com/en-us/azure/event-hubs/event-hubs-about) 
