@@ -22,7 +22,7 @@
     "@types/jest": "^23.3.2",
     "jest": "^23.6.0",
     "ts-jest": "^23.1.4",
-    "ts-lint": "^4.5.1",
+    "tslint": "^4.5.1",
     "typescript": "^3.0.3"
   },
   "files": [
