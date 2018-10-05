@@ -11,12 +11,6 @@ const serviceBusConnectionString =
   process.env.SERVICE_BUS_STRING ||
   'Endpoint=sb://ramble.servicebus.windows.net/;SharedAccessKeyName=RootManageSharedAccessKey;SharedAccessKey=pwSES7By/4LPJzBrM/2tX6ZlKCVK1LjGJ4Pefiq7f5U=';
 
-interface Trip {
-  id: string;
-  trip_distance: number;
-  status: string;
-}
-
 describe('Hermes', () => {
   it('should be defined', () => {
     expect(Hermes).toBeDefined();
