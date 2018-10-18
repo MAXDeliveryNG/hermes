@@ -68,14 +68,26 @@ export class ServiceBus {
    * @param {string} name
    */
   getTopic(name: string) {
-    return util.promisify(this._bus.getTopic)(name);
+    return new Promise<Azure.ServiceBus.Results.Models.Topic>(
+      (resolve, reject) => {
+        this._bus.getTopic(name, (error, response) => {
+          if (error) reject(error);
+          resolve(response);
+        });
+      }
+    );
   }
   /**
    * Delete topic
    * @param {string} name
    */
   deleteTopic(name: string) {
-    return util.promisify(this._bus.deleteTopic)(name);
+    return new Promise<Azure.ServiceBus.Response>((resolve, reject) => {
+      this._bus.deleteTopic(name, (error, response) => {
+        if (error) reject(error);
+        resolve(response);
+      });
+    });
   }
   /**
    * List topics in namespace
