@@ -27,4 +27,10 @@ describe('Hermes', () => {
     expect(servicebus).toBeDefined();
     expect(servicebus).toBeInstanceOf(ServiceBus);
   });
+
+  it('can get a ServiceBus topic', async () => {
+    const servicebus = Hermes.createServiceBus(serviceBusConnectionString);
+    const topic = await servicebus.getTopic('mpqr_transactions');
+    expect(topic).toBeDefined();
+  });
 });
