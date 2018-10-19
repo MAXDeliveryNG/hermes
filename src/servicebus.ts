@@ -1,5 +1,4 @@
 import { Azure, ServiceBusService, createServiceBusService } from 'azure-sb';
-import util from 'util';
 
 export interface Dictionary<T> {
   [k: string]: T;
@@ -172,7 +171,14 @@ export class ServiceBus {
    * @param {string}subscripitonName
    */
   getSubscription(name: string, subscripitonName: string) {
-    return util.promisify(this._bus.getSubscription)(name, subscripitonName);
+    return new Promise<Azure.ServiceBus.Results.Models.Subscription>(
+      (resolve, reject) => {
+        this._bus.getSubscription(name, subscripitonName, (error, response) => {
+          if (error) reject(error);
+          resolve(response);
+        });
+      }
+    );
   }
   /**
    * List subscriptions in topic
@@ -203,28 +209,52 @@ export class ServiceBus {
    * @param {string} subscriptionName
    */
   deleteSubscription(name: string, subscriptionName: string) {
-    return util.promisify(this._bus.deleteSubscription)(name, subscriptionName);
+    return new Promise<Azure.ServiceBus.Response>((resolve, reject) => {
+      this._bus.deleteSubscription(
+        name,
+        subscriptionName,
+        (error, response) => {
+          if (error) reject(error);
+          resolve(response);
+        }
+      );
+    });
   }
   /**
    * Delete message
    * @param {Azure.ServiceBus.MessageOrName} message
    */
   deleteMessage(message: Azure.ServiceBus.MessageOrName) {
-    return util.promisify(this._bus.deleteMessage)(message);
+    return new Promise<Azure.ServiceBus.Response>((resolve, reject) => {
+      this._bus.deleteMessage(message, (error, response) => {
+        if (error) reject(error);
+        resolve(response);
+      });
+    });
   }
   /**
    * Unlock a message
    * @param {Azure.ServiceBus.MessageOrName} message
    */
   unlockMessage(message: Azure.ServiceBus.MessageOrName) {
-    return util.promisify(this._bus.unlockMessage)(message);
+    return new Promise<Azure.ServiceBus.Response>((resolve, reject) => {
+      this._bus.unlockMessage(message, (error, response) => {
+        if (error) reject(error);
+        resolve(response);
+      });
+    });
   }
   /**
    * Renew a message lock
    * @param {Azure.ServiceBus.MessageOrName} message
    */
   renewMessageLock(message: Azure.ServiceBus.MessageOrName) {
-    return util.promisify(this._bus.renewLockForMessage)(message);
+    return new Promise<Azure.ServiceBus.Response>((resolve, reject) => {
+      this._bus.renewLockForMessage(message, (error, response) => {
+        if (error) reject(error);
+        resolve(response);
+      });
+    });
   }
   /**
    * Send message to topic
